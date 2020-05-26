@@ -1,0 +1,72 @@
+{% extends 'basic.html' %}
+
+{% block title %}Home{% endblock title %}
+{% block homeactive %} active {% endblock homeactive %}
+{% block css %}
+
+<style type="text/css" data-typed-js-css="true">
+        .typed-cursor{
+          opacity: 1;
+        }
+        .typed-cursor.typed-cursor--blink{
+          animation: typedjsBlink 0.7s infinite;
+          -webkit-animation: typedjsBlink 0.7s infinite;
+                  animation: typedjsBlink 0.7s infinite;
+        }
+        @keyframes typedjsBlink{
+          50% { opacity: 0.0; }
+        }
+        @-webkit-keyframes typedjsBlink{
+          0% { opacity: 1; }
+          50% { opacity: 0.0; }
+          100% { opacity: 1; }
+        }
+      </style>
+{% endblock css %}
+{% block body %}
+<section class="jumbotron text-center">
+    <div class="container">
+        <img src="/media/images/vCoder.png" alt="logo" width="250">
+        <h1 class="jumbotron-heading"><span id="typed"></span><span class="typed-cursor typed-cursor --blink"></span></h1>
+        <p class="lead text-muted">Our aim is to make web development easier and more fun by providing high-quality resources and useful tutorials to our readers. </p>
+        <p>
+            <a href="/blog" class="btn btn-danger my-2">Browse Blog</a>
+            <a href="/contact" class="btn btn-primary my-2">Contact vCoder</a>
+        </p>
+    </div>
+</section>
+<div class="container my-3">
+    <h2>Popular Blogposts</h2>
+    {% for post in allposts %}
+
+    <div class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
+            <h3 class="mb-0">{{post.title}}</h3>
+            <div class="mb-1 text-muted">{{post.timestamp}}</div>
+            <p class="card-text mb-auto">{{post.content| truncatechars:500 }}</p>
+            <div class="my-2">
+                <a href="/blog" role="button" class="btn btn-primary">Continue reading</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock body %}
+{% block js %}
+<script>
+    window.onload = function () {
+        console.log("loaded")
+        var typed = new Typed('#typed', {
+            strings: ["Welcome to vCoder", "Learn Python", "Web development", "Data Science", "Machine Learning", "and other awesome programming concepts with vCoder :)"],
+            backSpeed: 15,
+            smartBackspace: true,
+            backDelay: 1200,
+            startDelay: 1000,
+            typeSpeed: 25,
+            loop: true,
+        });
+    };
+</script>
+
+{% endblock js %}
